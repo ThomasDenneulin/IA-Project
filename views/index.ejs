@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./index_files/w3.css">
+        <link rel="stylesheet" href="./index_files/css">
+        <link rel="stylesheet" href="./index_files/font-awesome.min.css">
+	</head>
+<body>
+	<header>
+        Web interface final project
+    </header>
+    
+<main>
+		<h1>Artificial Intelligence software development</h1>
+       
+        <h2></h2>
+        <div class="form-style-5">
+		<legend> Will you go to courses or not ?</legend>
+		<form action = "/" method="POST">
+			<ul>
+				<% questions.forEach(function(question){%>
+				<p>
+					<label><%= question.enonced %></label>
+					<input type="checkbox" id = " <%=question.id %>" name=" <%=question.id %>">
+				</p>
+				<% }); %>
+			</ul>
+		<button type="submit" value = "submit">Process</button>
+		</form>
+        
+        
+    </div>
+        <p>
+
+        </p>
+</main>
+    
+</body>
+</html>
