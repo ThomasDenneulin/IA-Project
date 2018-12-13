@@ -6,30 +6,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="./index_files/w3.css">
         <link rel="stylesheet" href="./index_files/css">
-        <link rel="stylesheet" href="./index_files/font-awesome.min.css">
+		<link rel="stylesheet" href="./index_files/font-awesome.min.css">
 	</head>
 <body>
 	<header>
         Web interface final project
     </header>
-    
+	
 <main>
 		<h1>Artificial Intelligence software development</h1>
        
         <h2></h2>
         <div class="form-style-5">
 		<legend> Will you go to courses or not ?</legend>
-		<form action = "/" method="POST">
 			<ul>
+				<form>
 				<% questions.forEach(function(question){%>
 				<p>
 					<label><%= question.enonced %></label>
-					<input type="checkbox" id = " <%=question.id %>" name=" <%=question.id %>">
+					<input type="checkbox" name = "quest" value=" <%=question.id %>">
 				</p>
 				<% }); %>
 			</ul>
-		<button type="submit" value = "submit">Process</button>
-		</form>
+		<button type = "submit" value = "submit">Process</button>
+	</form>
         
         
     </div>
@@ -37,6 +37,14 @@
 
         </p>
 </main>
-    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+		function process(){
+		var checked = []
+		$("input:checkbox[name='quest']:checked").each(element => {
+			console.log($(this).attr('type'))
+		});
+	}
+		</script>
 </body>
 </html>

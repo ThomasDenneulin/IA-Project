@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 
 app.post("/",(req,res)=>{
     console.log(req.body)
-    ProcessSubmit(2,req.body)
+    //ProcessSubmit(2,req.body)
     res.render("index",{questions : jsonQuest});
 })
 
