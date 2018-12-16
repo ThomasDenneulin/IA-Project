@@ -6,6 +6,6 @@
     {"id":4,"enonced":"It's cheap","answers":7,"positif_answers":2,"priority":0.6666666666666667},
     {"id":5,"enonced":"learn the local language","answers":7,"positif_answers":0,"priority":0.01},
     {"id":6,"enonced":"Discover new culture","answers":7,"positif_answers":0,"priority":0.01},
-    {"id":7,"enonced":"Q8","answers":7,"positif_answers":5,"priority":0.9873015873015873},
-    {"id":8,"enonced":"Q9","answers":7,"positif_answers":0,"priority":0.01},
-    {"id":9,"enonced":"Q10","answers":7,"positif_answers":2,"priority":0.46964285714285714}]
+    {"id":7,"enonced":"For the night life","answers":7,"positif_answers":5,"priority":0.9873015873015873},
+    {"id":8,"enonced":"For the food","answers":7,"positif_answers":0,"priority":0.01},
+    {"id":9,"enonced":"For the building architecture","answers":7,"positif_answers":2,"priority":0.46964285714285714}]
