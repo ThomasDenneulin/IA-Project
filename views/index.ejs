@@ -20,7 +20,6 @@
         <div class="form-style-5">
 		<legend> Will you go to courses or not ?</legend>
 			<ul>
-				<form>
 				<% questions.forEach(function(question){%>
 				<p>
 					<label><%= question.enonced %></label>
@@ -28,8 +27,7 @@
 				</p>
 				<% }); %>
 			</ul>
-		<button type = "submit" value = "submit">Process</button>
-	</form>
+		<button onclick = "process()" value = "submit">Process</button>
         
         
     </div>
@@ -41,9 +39,23 @@
 <script>
 		function process(){
 		var checked = []
-		$("input:checkbox[name='quest']:checked").each(element => {
-			console.log($(this).attr('type'))
-		});
+		var checks = document.getElementsByName("quest")
+		console.log(checks)
+			checks.forEach(element => {
+				if(element.checked == true){
+					checked.push((element.value).trim());
+				}
+			});
+		$.ajax({
+			url : '/process',
+			type : "POST",
+			dataType : "json",
+			contentType: "application/json",
+			data : JSON.stringify({"q":checked}),
+			success : (msg)=>{
+				console.log("SUCCED")
+			}
+		})
 	}
 		</script>
 </body>

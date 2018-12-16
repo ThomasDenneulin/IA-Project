@@ -16,8 +16,23 @@ app.get('/', function(req, res) {
     res.render('index', {questions : jsonQuest});
 });
 
-app.post("/",(req,res)=>{
-    console.log(req.body)
+app.post("/process",(req,res)=>{
+    //console.log(req.body)
+    //var checked = JSON.parse(req.body)
+    console.log(req.body.q)
+    var checked = req.body.q
+    //console.log(checked[0])
+    jsonQuest = LoadJSON()
+    incrementAnswer()
+    writeALL()
+    checked.forEach(element => {
+        jsonQuest = LoadJSON()
+        var quest = searchById(parseInt(element),jsonQuest)
+        console.log("RETURNED QUESTION : "+JSON.stringify(quest))
+        RecalculPriority(quest)
+    });
+    console.log("PASSED")
+    
     //ProcessSubmit(2,req.body)
     res.render("index",{questions : jsonQuest});
 })
@@ -34,36 +49,49 @@ function LoadJSON(){
     return questions;
 }
 
-function searchById(id,objects){
-    console.log(objects)
+function searchById(id){
+    //console.log(objects)
     var returned = null;
-    returned = objects.find(element => element.id === id)
-    console.log(returned)
+    returned = jsonQuest.find(element => element.id === id)
+    console.log("FINDED : "+ returned)
     return returned
 }
 
-function ProcessSubmit(qId,data){
+function ProcessSubmit(qId){
     var jsonQuest = LoadJSON()
-    //console.log(req)
-    data.forEach(element => {
-        console.log(element)
-    });
+    RecalculPriority(qId)
     //var question = searchById(qId,jsonQuest)
 }
 
+function incrementAnswer(){
+    jsonQuest.forEach(element => {
+        element.answers += 1
+    });
+}
 function RecalculPriority(question){ //Xnew = Cn-1 + (1 - Cn-1) * Cpositif / Ctotal
+    console.log("A "+question.enonced)
+    console.log("b "+question.priority)
+    console.log("c "+question.positif_answers)
+    console.log("d "+question.answers)
+    question.positif_answers += 1
     var Xnew = question.priority + (1 - question.priority) * (question.positif_answers / question.answers)
+    console.log("XNew "+ Xnew)
     jsonQuest.forEach(element => {
         if(element == question){
             element.priority = Xnew
         }
     });
+    
+    writeALL()
+   
+}
+
+function writeALL(){
     try{
         fs.writeFileSync("./Questions.json",JSON.stringify(jsonQuest))
     }catch(exc){
         console.log("ERROR IN WRITTING FILE")
     }
-   
 }
 
 app.listen(8080);
