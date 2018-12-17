@@ -17,11 +17,8 @@ app.get('/', function(req, res) {
 });
 
 app.post("/process",(req,res)=>{
-    //console.log(req.body)
-    //var checked = JSON.parse(req.body)
     console.log(req.body.q)
     var checked = req.body.q
-    //console.log(checked[0])
     jsonQuest = LoadJSON()
     incrementAnswer()
     writeALL()
@@ -32,41 +29,11 @@ app.post("/process",(req,res)=>{
         console.log("RETURNED QUESTION : "+JSON.stringify(quest))
         RecalculPriority(quest)
     });
-    console.log("PASSED")
-    res.send({conclude : conclude(jsonQuest),
+    jsonQuest = LoadJSON()
+    res.send({conclude : conclude(checked),
               newQuestions : jsonQuest})
 })
 
-function recalculAllNotChecked(checked){
-var notChecked = [];
-jsonQuest.forEach(element => {
-    
-    checked.forEach(element2 => {
-       // var elementReel = searchById(element2)
-        if(element.id != element2){
-            notChecked.push(element);
-        }
-    })
-
-    console.log("NON CHECKED ELEMENT")
-    notChecked.forEach(element =>{
-        console.log(JSON.stringify(element))
-    })
-
-    notChecked.forEach(question => {
-        var Xnew = question.priority + (1 - question.priority) * (question.positif_answers / question.answers)
-        var Xnew2 = question.priority - (Xnew * (question.positif_answers / question.answers) * 2)
-        console.log("XNew "+ Xnew)
-        jsonQuest.forEach(element => {
-            if(element == question){
-                element.priority = Xnew2
-            }
-        });
-        
-        writeALL()
-    });
-})
-}
 app.use(function(req, res, next){
     res.setHeader('Content-Type', 'text/plain');
     res.status(404).send('Page introuvable !');
@@ -90,12 +57,6 @@ function searchById(id){
     return returned
 }
 
-function ProcessSubmit(qId){
-    var jsonQuest = LoadJSON()
-    RecalculPriority(qId)
-    //var question = searchById(qId,jsonQuest)
-}
-
 function incrementAnswer(){
     jsonQuest.forEach(element => {
         element.answers += 1
@@ -105,11 +66,18 @@ function incrementAnswer(){
 function conclude(checked){
     var moy = 0
     var returned = false
+    console.log(checked)
+    var moyAllCalc = 0
+    jsonQuest.forEach(element => {
+        moyAllCalc += element.priority
+    });
+    moyAllCalc = moyAllCalc / jsonQuest.length
     checked.forEach(element => {
-        moy += element.priority
+        var u = searchById(parseInt(element))
+        moy += u.priority
     });
     var moy = moy / checked.length
-    if(moy > 0.5){
+    if(moy >moyAllCalc){
         returned = true
     }
     console.log("Moy :"+moy)
@@ -117,10 +85,6 @@ function conclude(checked){
 }
 
 function RecalculPriority(question){ //Xnew = Cn-1 + (1 - Cn-1) * Cpositif / Ctotal
-    /*console.log("A "+question.enonced)
-    console.log("b "+question.priority)
-    console.log("c "+question.positif_answers)
-    console.log("d "+question.answers)*/
     question.positif_answers += 1
     var Xnew = question.priority + (1 - question.priority) * (question.positif_answers / question.answers)
     console.log("XNew "+ Xnew)

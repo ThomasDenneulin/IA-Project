@@ -7,31 +7,46 @@
         <link rel="stylesheet" href="./index_files/w3.css">
         <link rel="stylesheet" href="./index_files/css">
 		<link rel="stylesheet" href="./index_files/font-awesome.min.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	</head>
 <body>
 	<header>
         Web interface final project
     </header>
-	
+	<style>
+		h1 {
+			text-align: center;
+		}
+		#containerQuestion{
+			margin : auto
+		}
+		ul{
+			list-style-type: circle
+		}
+	</style>
 <main>
 		<h1>Artificial Intelligence software development</h1>
        
         <h2></h2>
         <div class="form-style-5" >
-		<legend> Are you going in vacation in that country ?</legend>
-			<ul>
-				<% questions.forEach(function(question){%>
-				<div id="containerQuestions">
-				<p>
-					<label><%= question.enonced %> -------- priority : <%= question.priority %></label>
-					<input type="checkbox" name = "quest" value=" <%=question.id %>">
-				</p>
-				<% }); %>
-			</ul>
+		<div class="card">	
+				<div class="card-body">
+			<legend> Why are you going in vacation in that country ?</legend>
+			<br>
+				<ul>
+					<% questions.forEach(function(question){%>
+					<div id="containerQuestions">
+					<p>
+						<label><%= question.enonced %> -------- priority : <%= question.priority %></label>
+						<input type="checkbox" name = "quest" value=" <%=question.id %>">
+					</p>
+					<% }); %>
+				</ul>
+					</div>
+				<button onclick = "process()" value = "submit">Process</button>
+        
+		</div>
         </div>
-		<button onclick = "process()" value = "submit">Process</button>
-        
-        
     </div>
         <p id = "result">
 
