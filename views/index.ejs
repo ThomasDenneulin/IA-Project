@@ -18,7 +18,7 @@
        
         <h2></h2>
         <div class="form-style-5" >
-		<legend> Will you go to courses or not ?</legend>
+		<legend> Are you going in vacation in that country ?</legend>
 			<ul>
 				<% questions.forEach(function(question){%>
 				<div id="containerQuestions">
@@ -60,8 +60,8 @@
 				var ok = ""
 				//console.log(msg.newQuestions)
 				msg.newQuestions.sort((a,b)=>{
-        return b.priority - a.priority
-	})
+        			return b.priority - a.priority
+				})
 				//console.log(msg.newQuestions)
 				msg.newQuestions.forEach(question => {
 					ok += "<p>  <label> "+ question.enonced +" </label> <input type='checkbox' name = 'quest' value= "+question.id+"> </p>"

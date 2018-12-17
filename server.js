@@ -33,9 +33,7 @@ app.post("/process",(req,res)=>{
         RecalculPriority(quest)
     });
     console.log("PASSED")
-    
-    //ProcessSubmit(2,req.body)
-    res.send({conclude : true,
+    res.send({conclude : conclude(jsonQuest),
               newQuestions : jsonQuest})
 })
 
@@ -114,6 +112,7 @@ function conclude(checked){
     if(moy > 0.5){
         returned = true
     }
+    console.log("Moy :"+moy)
     return returned
 }
 
