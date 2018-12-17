@@ -17,21 +17,23 @@
 		<h1>Artificial Intelligence software development</h1>
        
         <h2></h2>
-        <div class="form-style-5">
+        <div class="form-style-5" >
 		<legend> Will you go to courses or not ?</legend>
 			<ul>
 				<% questions.forEach(function(question){%>
+				<div id="containerQuestions">
 				<p>
-					<label><%= question.enonced %></label>
+					<label><%= question.enonced %> -------- priority : <%= question.priority %></label>
 					<input type="checkbox" name = "quest" value=" <%=question.id %>">
 				</p>
 				<% }); %>
 			</ul>
+        </div>
 		<button onclick = "process()" value = "submit">Process</button>
         
         
     </div>
-        <p>
+        <p id = "result">
 
         </p>
 </main>
@@ -53,9 +55,37 @@
 			contentType: "application/json",
 			data : JSON.stringify({"q":checked}),
 			success : (msg)=>{
-				console.log("SUCCED")
+				//console.log("PASSED")
+				console.log(msg.conclude);
+				var ok = ""
+				//console.log(msg.newQuestions)
+				msg.newQuestions.sort((a,b)=>{
+        return b.priority - a.priority
+	})
+				//console.log(msg.newQuestions)
+				msg.newQuestions.forEach(question => {
+					ok += "<p>  <label> "+ question.enonced +" </label> <input type='checkbox' name = 'quest' value= "+question.id+"> </p>"
+				});
+				document.getElementById("containerQuestions").innerHTML = ok;
+				
+				if (msg.conclude){
+					document.getElementById("result").innerHTML = "YES YOU'RE GOING";
+				} else{
+					document.getElementById("result").innerHTML = "NO !";
+				}
 			}
 		})
+	}
+
+	function writeHTML(questions){
+		var ok = ""
+		console.log(JSON.stringify(questions))
+
+		questions.forEach(question => {
+			ok += "<p>  <label> "+ question.enonced +"  -------- priority : " + question.priority + "</label> <input type='checkbox' name = 'quest' value= "+question.id+"> </p>"
+		});
+		//console.log(ok)
+		return ok
 	}
 		</script>
 </body>

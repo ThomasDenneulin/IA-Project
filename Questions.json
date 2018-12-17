@@ -1,11 +1,1 @@
-[{"id":0,"enonced":"I've never been there",
-    "answers":7,"positif_answers":0,"priority":0.01},
-    {"id":1,"enonced":"Because of beautifull landscape","answers":7,"positif_answers":3,"priority":0.6982857142857143},
-    {"id":2,"enonced":"Because it's warm","answers":7,"positif_answers":0,"priority":0.01},
-    {"id":3,"enonced":"Because it's snowing","answers":7,"positif_answers":0,"priority":0.01},
-    {"id":4,"enonced":"It's cheap","answers":7,"positif_answers":2,"priority":0.6666666666666667},
-    {"id":5,"enonced":"learn the local language","answers":7,"positif_answers":0,"priority":0.01},
-    {"id":6,"enonced":"Discover new culture","answers":7,"positif_answers":0,"priority":0.01},
-    {"id":7,"enonced":"For the night life","answers":7,"positif_answers":5,"priority":0.9873015873015873},
-    {"id":8,"enonced":"For the food","answers":7,"positif_answers":0,"priority":0.01},
-    {"id":9,"enonced":"For the building architecture","answers":7,"positif_answers":2,"priority":0.46964285714285714}]
+[{"id":7,"enonced":"For the night life","answers":14,"positif_answers":3,"priority":1},{"id":1,"enonced":"Because of beautifull landscape","answers":14,"positif_answers":6,"priority":0.9730769230769231},{"id":3,"enonced":"Because it's snowing","answers":14,"positif_answers":4,"priority":0.7653333333333333},{"id":0,"enonced":"I've never been there","answers":14,"positif_answers":4,"priority":0.7165},{"id":8,"enonced":"For the food","answers":14,"positif_answers":3,"priority":0.6953846153846154},{"id":9,"enonced":"For the building architecture","answers":14,"positif_answers":4,"priority":0.690625},{"id":4,"enonced":"It's cheap","answers":14,"positif_answers":2,"priority":0.595},{"id":2,"enonced":"Because it's warm","answers":14,"positif_answers":2,"priority":0.4342857142857143},{"id":5,"enonced":"learn the local language","answers":14,"positif_answers":2,"priority":0.4342857142857143},{"id":6,"enonced":"Discover new culture","answers":14,"positif_answers":2,"priority":0.30700000000000005}]

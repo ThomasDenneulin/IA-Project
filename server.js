@@ -25,6 +25,7 @@ app.post("/process",(req,res)=>{
     jsonQuest = LoadJSON()
     incrementAnswer()
     writeALL()
+    //recalculAllNotChecked(checked)
     checked.forEach(element => {
         jsonQuest = LoadJSON()
         var quest = searchById(parseInt(element),jsonQuest)
@@ -34,9 +35,40 @@ app.post("/process",(req,res)=>{
     console.log("PASSED")
     
     //ProcessSubmit(2,req.body)
-    res.render("index",{questions : jsonQuest});
+    res.send({conclude : true,
+              newQuestions : jsonQuest})
 })
 
+function recalculAllNotChecked(checked){
+var notChecked = [];
+jsonQuest.forEach(element => {
+    
+    checked.forEach(element2 => {
+       // var elementReel = searchById(element2)
+        if(element.id != element2){
+            notChecked.push(element);
+        }
+    })
+
+    console.log("NON CHECKED ELEMENT")
+    notChecked.forEach(element =>{
+        console.log(JSON.stringify(element))
+    })
+
+    notChecked.forEach(question => {
+        var Xnew = question.priority + (1 - question.priority) * (question.positif_answers / question.answers)
+        var Xnew2 = question.priority - (Xnew * (question.positif_answers / question.answers) * 2)
+        console.log("XNew "+ Xnew)
+        jsonQuest.forEach(element => {
+            if(element == question){
+                element.priority = Xnew2
+            }
+        });
+        
+        writeALL()
+    });
+})
+}
 app.use(function(req, res, next){
     res.setHeader('Content-Type', 'text/plain');
     res.status(404).send('Page introuvable !');
@@ -46,6 +78,9 @@ app.use(function(req, res, next){
 function LoadJSON(){
     var text = fs.readFileSync("./Questions.json")
     var questions = JSON.parse(text);
+    questions.sort((a,b)=>{
+        return b.priority - a.priority
+    })
     return questions;
 }
 
@@ -68,11 +103,25 @@ function incrementAnswer(){
         element.answers += 1
     });
 }
+
+function conclude(checked){
+    var moy = 0
+    var returned = false
+    checked.forEach(element => {
+        moy += element.priority
+    });
+    var moy = moy / checked.length
+    if(moy > 0.5){
+        returned = true
+    }
+    return returned
+}
+
 function RecalculPriority(question){ //Xnew = Cn-1 + (1 - Cn-1) * Cpositif / Ctotal
-    console.log("A "+question.enonced)
+    /*console.log("A "+question.enonced)
     console.log("b "+question.priority)
     console.log("c "+question.positif_answers)
-    console.log("d "+question.answers)
+    console.log("d "+question.answers)*/
     question.positif_answers += 1
     var Xnew = question.priority + (1 - question.priority) * (question.positif_answers / question.answers)
     console.log("XNew "+ Xnew)
@@ -83,7 +132,7 @@ function RecalculPriority(question){ //Xnew = Cn-1 + (1 - Cn-1) * Cpositif / Cto
     });
     
     writeALL()
-   
+    LoadJSON()
 }
 
 function writeALL(){
